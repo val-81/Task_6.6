@@ -8,6 +8,9 @@ namespace Task_6._6
 {
     class Program
     {
+
+        static int playerScore = 0;
+
         static void DrawCrocc(int x, int y, int size) // Метод рисует крестик
         {
             for (int i = x; i <= x + size; i++)
@@ -21,7 +24,7 @@ namespace Task_6._6
                     }
                 }
             }
-            
+
         }
 
         static void DrawRectangle(int x, int y, int size) // Метод рисует нолик
@@ -42,7 +45,7 @@ namespace Task_6._6
 
         static void DrawField(int width, int height, int cellsize) // Метод рисует поле
         {
-                for (int y = 0; y <= height; y += cellsize)
+            for (int y = 0; y <= height; y += cellsize)
             {
                 for (int x = 0; x < width; x++)
                 {
@@ -82,6 +85,9 @@ namespace Task_6._6
         static void Main(string[] args)
 
         {
+            Console.SetCursorPosition(35, 8);
+            Console.Write("Счетчик ходов: ");
+
             // Базовые настройки и отрисовка поля
             Console.SetWindowSize(90, 34);
             Console.SetBufferSize(90, 34);
@@ -92,6 +98,7 @@ namespace Task_6._6
             int c1, c2, c3, c4, c5, c6, c7, c8, c9; // DrawCross = 0, DrawRectangle = 1, null <= -1
             c1 = -1; c2 = -2; c3 = -3; c4 = -4; c5 = -5; c6 = -6; c7 = -7; c8 = -8; c9 = -9;
             int win = -1;
+            int b = 0;
 
             // Главный цикл игры
 
@@ -106,10 +113,13 @@ namespace Task_6._6
                 Console.SetCursorPosition(35, 1);
                 Console.Write("Введите номер клетки: ");
 
+                playerScore += 1; // Счетчик
+
+
 
                 // Проверка корректности ввода
                 bool errorInput = !int.TryParse(Console.ReadLine(), out input);
- 
+
 
                 if (input < 1 || input > 9) errorInput = true;
                 if (input == 1 && c1 >= 0) errorInput = true;
@@ -131,6 +141,9 @@ namespace Task_6._6
                     continue;
 
                 }
+                Console.SetCursorPosition(49, 8);
+                Console.Write("");
+                Console.Write(" " + playerScore);
 
                 if (input == 1) c1 = i % 2;
                 if (input == 2) c2 = i % 2;
@@ -151,6 +164,7 @@ namespace Task_6._6
 
                 if (i % 2 == 0)
                 {
+
                     DrawCrocc(x, y, 7);
                     Console.SetCursorPosition(35, 0);
                     Console.Write("Ход игрока 2: ");
@@ -191,9 +205,11 @@ namespace Task_6._6
                     break;
                 }
             }
+
             Console.SetCursorPosition(35, 4);
 
             if (win == -1) Console.WriteLine("Ничья!");
+
 
             Console.ReadKey();
         }
